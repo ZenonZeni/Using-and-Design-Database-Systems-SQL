@@ -1,0 +1,884 @@
+SQL> @ a2.sql
+drop table airline_S
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table representative_S
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table is_accommodated
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table visit
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table service_I
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table principal
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table regular
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table is_booked
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table visit
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table touroperator
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table guest_I
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table room
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table building_i
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table resturant
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+
+Table created.
+
+
+Table created.
+
+foreign key (mid) references representative_report (rid) on delete set null)
+                             *
+ERROR at line 3:
+ORA-00942: table or view does not exist 
+
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+foreign key (rid) references representative_S)
+                             *
+ERROR at line 3:
+ORA-00942: table or view does not exist 
+
+
+foreign key (rid) references representative_S on delete cascade)
+                             *
+ERROR at line 3:
+ORA-00942: table or view does not exist 
+
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> @ a2.sql
+
+Table dropped.
+
+drop table representative_S
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+drop table service_I
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+drop table principal
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table regular
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+
+Table dropped.
+
+drop table visit
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+create table service_I(SID char(6), title char(15), fee number check (fee>= 0 AND fee<=200),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> @ a2.sql
+
+Table dropped.
+
+drop table representative_S
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+drop table visit
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table touroperator
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+create table touroperator(toid char(6), cname char(15), phone char(10),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table created.
+
+create table representative_S (rid char(6), rname char(15), phone char(10), toid char(6) not null, mid char(9),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> @ a2.sql
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+drop table representative_S
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+drop table visit
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table touroperator
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+create table touroperator(toid char(6), cname char(15), phone char(10),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table created.
+
+create table representative_S (rid char(6), rname char(15), phone char(10), toid char(6) not null, mid char(9),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> @ a2.sql
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+drop table representative_S
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+drop table visit
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+drop table touroperator
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+create table touroperator(toid char(6), cname char(15), phone char(10),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table created.
+
+create table representative_S (rid char(6), rname char(15), phone char(10), toid char(6) not null, mid char(9),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> desc airline_S;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ANAME                                     NOT NULL CHAR(10)
+ WEBSITE                                            CHAR(100)
+ PHONE                                              CHAR(10)
+ TOID                                      NOT NULL CHAR(6)
+
+SQL> @ a2.sql
+create table visit(VID char(6), Vdate date, Mtype char(15), GID char(6) not null, Restid char(6) not null,
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+drop table visit
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> @a2.sql
+create table visit(VID char(6), Vdate date, Mtype char(15), GID char(6) not null, Restid char(6) not null,
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+drop table visit
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> desc visit;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ VID                                       NOT NULL CHAR(6)
+ VDATE                                              DATE
+ MTYPE                                              CHAR(15)
+ GID                                       NOT NULL CHAR(6)
+ RESTID                                    NOT NULL CHAR(6)
+
+SQL> @ a2.sql
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> a2.sql
+  2* primary key (VID), foreign key (GID) references guest_I, foreign key (Restid) references resturant)2.sql
+SQL> @ a2.sql
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> spool off

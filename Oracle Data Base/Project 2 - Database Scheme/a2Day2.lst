@@ -1,0 +1,462 @@
+SQL> create table touroperator(toid char(6), cname char(15), phone char(10), Aname char(10) not null,
+  2  primary key (toid));
+
+Table created.
+
+SQL> desc touroperator
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TOID                                      NOT NULL CHAR(6)
+ CNAME                                              CHAR(15)
+ PHONE                                              CHAR(10)
+ ANAME                                     NOT NULL CHAR(10)
+
+SQL> create table airline_S(Aname char(10), website char(100), phone char(10), toid char(6) not null,
+  2  primary key (Aname), foreign key(toid) references touroperator on delete cascade);
+
+Table created.
+
+SQL> desc airline
+ERROR:
+ORA-04043: object airline does not exist 
+
+
+SQL> desc airline_s;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ANAME                                     NOT NULL CHAR(10)
+ WEBSITE                                            CHAR(100)
+ PHONE                                              CHAR(10)
+ TOID                                      NOT NULL CHAR(6)
+
+SQL> create table repersentative_S(rid char(6), rname char(15), phone char(10), toid char(6) not null, mid char(9),
+  2  primary key (rid), foreign key (toid) references touroperator,
+  3  foreign key (mid) references representative_S (rid) on delete set null);
+foreign key (mid) references representative_S (rid) on delete set null)
+                             *
+ERROR at line 3:
+ORA-00942: table or view does not exist 
+
+
+SQL> create table repersentative_S(rid char(6), rname char(15), phone char(10), toid char(6) not null, mid char(9),
+  2  primary key (rid), foreign key (toid) references touroperator,
+  3   foreign key (mid) references repersentative_S (rid) on delete set null);
+
+Table created.
+
+SQL> drop table repersentative_S
+  2  );
+)
+*
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> drop table repersentative_S);
+drop table repersentative_S)
+                           *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> drop table repersentative_S;
+
+Table dropped.
+
+SQL> create table representative_S(rid char(6), rname char(15), phone char(10), toid char(6) not null, mid char(9),
+  2  primary key (rid), foreign key (toid) references touroperator,
+  3  foreign key (mid) references representative_S (rid) on delete set null);
+
+Table created.
+
+SQL> create table building_i (bnum char(6), category char(15), b_view char(15),
+  2  primary key (bnum));
+
+Table created.
+
+SQL> desc representative_S
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ RID                                       NOT NULL CHAR(6)
+ RNAME                                              CHAR(15)
+ PHONE                                              CHAR(10)
+ TOID                                      NOT NULL CHAR(6)
+ MID                                                CHAR(9)
+
+SQL> desc building_i
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BNUM                                      NOT NULL CHAR(6)
+ CATEGORY                                           CHAR(15)
+ B_VIEW                                             CHAR(15)
+
+SQL> create table room(bnum char(6), Rnum char(6), nbed INTEGER check (nbed>0 && nbed<=3),
+  2  category char(10) check(category in ('standard','luxary','executive')),
+  3  primary key (bnum, Rnum), foreign key (bnum) references building_i on delete cascade);
+Enter value for nbed: 1
+old   1: create table room(bnum char(6), Rnum char(6), nbed INTEGER check (nbed>0 && nbed<=3),
+new   1: create table room(bnum char(6), Rnum char(6), nbed INTEGER check (nbed>0 1<=3),
+create table room(bnum char(6), Rnum char(6), nbed INTEGER check (nbed>0 1<=3),
+                                                                         *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> desc room
+ERROR:
+ORA-04043: object room does not exist 
+
+
+SQL> create table room(bnum char(6), Rnum char(6), nbed INTEGER check nbed>0 && nbed<=3,
+  2  category char(10) check(category in ('standard','luxary','executive')),
+  3  primary key (bnum, Rnum), foreign key (bnum) references building_i on delete cascade);
+old   1: create table room(bnum char(6), Rnum char(6), nbed INTEGER check nbed>0 && nbed<=3,
+new   1: create table room(bnum char(6), Rnum char(6), nbed INTEGER check nbed>0 1<=3,
+create table room(bnum char(6), Rnum char(6), nbed INTEGER check nbed>0 1<=3,
+                                                                 *
+ERROR at line 1:
+ORA-00906: missing left parenthesis 
+
+
+SQL> create table room(bnum char(6), Rnum char(6), nbed INTEGER check nbed>0 AND nbed<=3,
+  2  category char(10) check(category in ('standard','luxary','executive')),
+  3  primary key (bnum, Rnum), foreign key (bnum) references building_i on delete cascade);
+create table room(bnum char(6), Rnum char(6), nbed INTEGER check nbed>0 AND nbed<=3,
+                                                                 *
+ERROR at line 1:
+ORA-00906: missing left parenthesis 
+
+
+SQL> create table room(bnum char(6), Rnum char(6), nbed INTEGER check (nbed>0 AND nbed<=3),
+  2  category char(10) check(category in ('standard','luxary','executive')),
+  3  primary key (bnum, Rnum), foreign key (bnum) references building_i on delete cascade);
+
+Table created.
+
+SQL> desc room
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BNUM                                      NOT NULL CHAR(6)
+ RNUM                                      NOT NULL CHAR(6)
+ NBED                                               NUMBER(38)
+ CATEGORY                                           CHAR(10)
+
+SQL> create table is_accommodated (Rnum char(6), GID char(6),
+  2  primary key (Rnum, GID), foreign key (Rnum) references room, foreign key (GID) references guest);
+primary key (Rnum, GID), foreign key (Rnum) references room, foreign key (GID) references guest)
+                                                       *
+ERROR at line 2:
+ORA-02256: number of referencing columns must match referenced columns 
+
+
+SQL> create table guest_I(GID char(6), Gname char(15), Address char(15),
+  2  primary key(GID));
+
+Table created.
+
+SQL> create table is_accommodated (Rnum char(6), GID char(6), bnum char(6),
+  2  primary key(Rnum,GID,bnum), foreign key (Rnum) references room, foreign key (GID) references guest,
+  3  foreign key(bnum) references building_i);
+primary key(Rnum,GID,bnum), foreign key (Rnum) references room, foreign key (GID) references guest,
+                                                          *
+ERROR at line 2:
+ORA-02256: number of referencing columns must match referenced columns 
+
+
+SQL> desc room
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BNUM                                      NOT NULL CHAR(6)
+ RNUM                                      NOT NULL CHAR(6)
+ NBED                                               NUMBER(38)
+ CATEGORY                                           CHAR(10)
+
+SQL> drop room
+  2  
+SQL> drop table room;
+
+Table dropped.
+
+SQL> create table room (Rnum char(6), bnum char(6), nbed INTEGER check (nbed>0 AND nbed<=3),
+  2  category char(10) check(category in ('standard','luxary','executive')),
+  3  primary key(Rnum, bnum), foreign key (bnum) references building_i on delete cascade);
+
+Table created.
+
+SQL> create table is_accommodated (Rnum char(6), GID char(6),
+  2  primary key(Rnum,GID,bnum), foreign key (Rnum) references room, foreign key (GID) references guest);
+primary key(Rnum,GID,bnum), foreign key (Rnum) references room, foreign key (GID) references guest)
+                     *
+ERROR at line 2:
+ORA-00904: "BNUM": invalid identifier 
+
+
+SQL> create table is_accommodated (Rnum char(6), GID char(6),
+  2  primary key(Rnum,GID), foreign key (Rnum) references room, foreign key (GID) references guest);
+primary key(Rnum,GID), foreign key (Rnum) references room, foreign key (GID) references guest)
+                                                     *
+ERROR at line 2:
+ORA-02256: number of referencing columns must match referenced columns 
+
+
+SQL> create table is_accommodated (Rnum char(6), GID char(6),
+  2  primary key(Rnum,GID), foreign key (Rnum) references room (Rnum), foreign key (GID) references guest);
+primary key(Rnum,GID), foreign key (Rnum) references room (Rnum), foreign key (GID) references guest)
+                                                           *
+ERROR at line 2:
+ORA-02270: no matching unique or primary key for this column-list 
+
+
+SQL> create table is_accommodated (Rnum char(6), GID char(6),
+  2  primary key(Rnum,GID), foreign key (Rnum) references room (Rnum, bnum), foreign key (GID) references guest);
+primary key(Rnum,GID), foreign key (Rnum) references room (Rnum, bnum), foreign key (GID) references guest)
+                                                                      *
+ERROR at line 2:
+ORA-02256: number of referencing columns must match referenced columns 
+
+
+SQL>  create table is_accommodated (Rnum char(6), GID char(6), bnum char(6),
+  2  primary key(Rnum,bnum,GID), foreign key (Rnum,bnum) references room (Rnum, bnum), foreign key (GID) references guest);
+primary key(Rnum,bnum,GID), foreign key (Rnum,bnum) references room (Rnum, bnum), foreign key (GID) references guest)
+                                                                                                               *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+SQL> desc guest_I
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ GID                                       NOT NULL CHAR(6)
+ GNAME                                              CHAR(15)
+ ADDRESS                                            CHAR(15)
+
+SQL> create table is_accommodated (Rnum char(6), GID char(6), bnum char(6),
+  2  primary key(Rnum,bnum,GID), foreign key (Rnum,bnum) references room (Rnum, bnum), foreign key (GID) references guest_I);
+
+Table created.
+
+SQL> desc is_accommodated
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ RNUM                                      NOT NULL CHAR(6)
+ GID                                       NOT NULL CHAR(6)
+ BNUM                                      NOT NULL CHAR(6)
+
+SQL> create table principal(GID char(6),  creditcard char(16), rid char(6) not null,
+  2  primary key(GID), foreign key (GID) references guest_I on delete cascade,
+  3  foreign key (rid) references representative_S)
+  4  ;
+
+Table created.
+
+SQL> desc principal
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ GID                                       NOT NULL CHAR(6)
+ CREDITCARD                                         CHAR(16)
+ RID                                       NOT NULL CHAR(6)
+
+SQL> create table regular(GID char(6), status char(16), rid char(6) not null,
+  2  primary key(GID), foreign key (GID) references guest_I on delete cascade
+  3  foreign key (rid) references representative_S on delete cascade);
+foreign key (rid) references representative_S on delete cascade)
+*
+ERROR at line 3:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table regular(GID char(6), status char(16), rid char(6) not null,
+  2  primary key(GID), foreign key (GID) references guest_I on delete cascade,
+  3  foreign key (rid) references representative_S on delete cascade);
+
+Table created.
+
+SQL> desc regular
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ GID                                       NOT NULL CHAR(6)
+ STATUS                                             CHAR(16)
+ RID                                       NOT NULL CHAR(6)
+
+SQL> create table service_I(SID char(6), title char(15), fee number check (fee>= 0 && fee<=200),
+  2  primary key(SID));
+Enter value for fee: 1
+old   1: create table service_I(SID char(6), title char(15), fee number check (fee>= 0 && fee<=200),
+new   1: create table service_I(SID char(6), title char(15), fee number check (fee>= 0 1<=200),
+create table service_I(SID char(6), title char(15), fee number check (fee>= 0 1<=200),
+                                                                              *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> desc service_I
+ERROR:
+ORA-04043: object service_I does not exist 
+
+
+SQL> create table service_I(SID char(6), title char(15), fee number check (fee>= 0 AND fee<=200),
+  2  primary key(SID));
+
+Table created.
+
+SQL> desc service_I
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL CHAR(6)
+ TITLE                                              CHAR(15)
+ FEE                                                NUMBER
+
+SQL> create table is_booked(SID char(6), GID char(6), Rnum char(6), sdate date,
+  2  primary key (SID, GID, Rnum), foreign key (SID) references service_I,
+  3  foreign key (GID) references guest,
+  4  foreign key (Rnum) references room);
+foreign key (GID) references guest,
+                             *
+ERROR at line 3:
+ORA-00942: table or view does not exist 
+
+
+SQL> create table is_booked(SID char(6), GID char(6), Rnum char(6), sdate date,
+  2  primary key (SID, GID, Rnum), foreign key (SID) references service_I,
+  3  foreign key (GID) references guest_I,
+  4  foreign key (Rnum) references room);
+foreign key (Rnum) references room)
+                              *
+ERROR at line 4:
+ORA-02256: number of referencing columns must match referenced columns 
+
+
+SQL> create table is_booked(SID char(6), GID char(6), Rnum char(6), bnum char(6), sdate date,
+  2  primary key (SID, GID, Rnum, bnum), foreign key (SID) references service_I,
+  3  foreign key (GID) references guest_I,
+  4  foreign key (Rnum, bnum) references room);
+
+Table created.
+
+SQL> create table resturant(Restid char(6), Rname char(15), Rtype char(5), theme char(15),
+  2  primary key (Restid));
+
+Table created.
+
+SQL> create table visit(VID char(6), Vdate date, Mtype char(15), GID char not null(6), Restid char(6) not null,
+  2  primary key (VID), foreign key (GID) references guest_I, foreign key (Restid) references resturant);
+create table visit(VID char(6), Vdate date, Mtype char(15), GID char not null(6), Restid char(6) not null,
+                                                                             *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table visit(VID char(6), Vdate date, Mtype char(15), GID char(6) not null, Restid char(6) not null,
+  2  primary key (VID), foreign key (GID) references guest_I, foreign key (Restid) references resturant);
+
+Table created.
+
+SQL> desc airline_S
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ANAME                                     NOT NULL CHAR(10)
+ WEBSITE                                            CHAR(100)
+ PHONE                                              CHAR(10)
+ TOID                                      NOT NULL CHAR(6)
+
+SQL> desc touroperator
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TOID                                      NOT NULL CHAR(6)
+ CNAME                                              CHAR(15)
+ PHONE                                              CHAR(10)
+ ANAME                                     NOT NULL CHAR(10)
+
+SQL> desc repersentative_S
+ERROR:
+ORA-04043: object repersentative_S does not exist 
+
+
+SQL> desc representative_S
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ RID                                       NOT NULL CHAR(6)
+ RNAME                                              CHAR(15)
+ PHONE                                              CHAR(10)
+ TOID                                      NOT NULL CHAR(6)
+ MID                                                CHAR(9)
+
+SQL> desc building_i
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BNUM                                      NOT NULL CHAR(6)
+ CATEGORY                                           CHAR(15)
+ B_VIEW                                             CHAR(15)
+
+SQL> desc room
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ RNUM                                      NOT NULL CHAR(6)
+ BNUM                                      NOT NULL CHAR(6)
+ NBED                                               NUMBER(38)
+ CATEGORY                                           CHAR(10)
+
+SQL> desc is_accommodated
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ RNUM                                      NOT NULL CHAR(6)
+ GID                                       NOT NULL CHAR(6)
+ BNUM                                      NOT NULL CHAR(6)
+
+SQL> desc guest_I
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ GID                                       NOT NULL CHAR(6)
+ GNAME                                              CHAR(15)
+ ADDRESS                                            CHAR(15)
+
+SQL> desc principal
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ GID                                       NOT NULL CHAR(6)
+ CREDITCARD                                         CHAR(16)
+ RID                                       NOT NULL CHAR(6)
+
+SQL> desc regular
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ GID                                       NOT NULL CHAR(6)
+ STATUS                                             CHAR(16)
+ RID                                       NOT NULL CHAR(6)
+
+SQL> desc service_I
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL CHAR(6)
+ TITLE                                              CHAR(15)
+ FEE                                                NUMBER
+
+SQL> desc is_booked
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SID                                       NOT NULL CHAR(6)
+ GID                                       NOT NULL CHAR(6)
+ RNUM                                      NOT NULL CHAR(6)
+ BNUM                                      NOT NULL CHAR(6)
+ SDATE                                              DATE
+
+SQL> desc visit
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ VID                                       NOT NULL CHAR(6)
+ VDATE                                              DATE
+ MTYPE                                              CHAR(15)
+ GID                                       NOT NULL CHAR(6)
+ RESTID                                    NOT NULL CHAR(6)
+
+SQL> desc resturant
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ RESTID                                    NOT NULL CHAR(6)
+ RNAME                                              CHAR(15)
+ RTYPE                                              CHAR(5)
+ THEME                                              CHAR(15)
+
+SQL> save a2.sql
+Created file a2.sql
+SQL> spool off

@@ -1,0 +1,202 @@
+SQL> drop table airline_S;
+
+Table dropped.
+
+SQL> drop table is_accommodated;
+
+Table dropped.
+
+SQL> drop table visit;
+
+Table dropped.
+
+SQL> drop table principal;
+
+Table dropped.
+
+SQL> drop table representative_S;
+
+Table dropped.
+
+SQL> drop table regular;
+
+Table dropped.
+
+SQL> drop table is_booked;
+
+Table dropped.
+
+SQL> drop table touroperator;
+
+Table dropped.
+
+SQL> drop table guest_I;
+
+Table dropped.
+
+SQL> drop table room;
+
+Table dropped.
+
+SQL> drop table service_I;
+
+Table dropped.
+
+SQL> drop table building_i;
+
+Table dropped.
+
+SQL> drop table resturant;
+
+Table dropped.
+
+SQL> create table touroperator(toid char(6), cname char(15), phone char(10),
+  2  primary key(toid));
+
+Table created.
+
+SQL> create table airline_S(Aname char(10), website char(100), phone char(10), toid char(6) not null,
+  2  primary key (Aname), foreign key (toid) references touroperator on delete cascade);
+
+Table created.
+
+SQL> create table representative_S (rid char(6), rname char(15), phone char(10), toid char(6) not null, mid char(9),
+  2  primary key(rid), foreign key (toid) references touroperator,
+  3  foreign key (mid) references representative_S (rid) on delete set null);
+
+Table created.
+
+SQL> create table building_i (bnum char(6), category char(15), b_view char(15),
+  2  primary key(bnum));
+
+Table created.
+
+SQL> create table room (Rnum char(6), bnum char(6), nbed INTEGER check (nbed>0 AND nbed<=3),
+  2  category char(10) check(category in ('standard','luxary','executive')),
+  3  primary key(Rnum, bnum), foreign key (bnum) references building_i on delete cascade);
+
+Table created.
+
+SQL> create table guest_I(GID char(6), Gname char(15), Address char(15),
+  2  primary key(GID));
+
+Table created.
+
+SQL> create table is_accommodated (Rnum char(6), GID char(6), bnum char(6),
+  2  primary key(Rnum,bnum,GID), foreign key (Rnum,bnum) references room (Rnum, bnum), foreign key (GID) references guest_I);
+
+Table created.
+
+SQL> create table principal(GID char(6),  creditcard char(16), rid char(6) not null,
+  2  primary key(GID), foreign key (GID) references guest_I on delete cascade,
+  3  foreign key (rid) references representative_S);
+
+Table created.
+
+SQL> create table regular(GID char(6), status char(16),
+  2  primary key(GID), foreign key (GID) references guest_I on delete cascade);
+
+Table created.
+
+SQL> create table service_I(SID char(6), title char(15), fee number check (fee>= 0 AND fee<=200),
+  2  primary key(SID));
+
+Table created.
+
+SQL> create table is_booked(SID char(6), GID char(6), Rnum char(6), bnum char(6), sdate date,
+  2  primary key (SID, GID, Rnum, bnum), foreign key (SID) references service_I,
+  3  foreign key (GID) references guest_I,
+  4  foreign key (Rnum, bnum) references room);
+
+Table created.
+
+SQL> create table resturant(Restid char(6), Rname char(15), Rtype char(5), theme char(15),
+  2  primary key (Restid));
+
+Table created.
+
+SQL> create table visit(VID char(6), Vdate date, Mtype char(15), GID char(6) not null, Restid char(6) not null,
+  2  primary key (VID), foreign key (GID) references guest_I, foreign key (Restid) references resturant);
+
+Table created.
+
+SQL> @ a2.sql
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> spool off

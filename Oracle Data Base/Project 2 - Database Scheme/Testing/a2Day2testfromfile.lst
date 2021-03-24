@@ -1,0 +1,512 @@
+SQL> @ a2.sql
+
+Table dropped.
+
+drop table touroperator
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+drop table representative_S
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+drop table room
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+
+Table dropped.
+
+drop table guest_I
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+
+Table dropped.
+
+drop table service_I
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table created.
+
+create table touroperator(toid char(6), cname char(15), phone char(10), Aname char(10) not null,
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+create table representative_S (rid char(6), rname char(15), phone char(10), toid char(6) not null, mid char(9),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+create table building_i (bnum char(6), category char(15), b_view char(15),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+create table room (Rnum char(6), bnum char(6), nbed INTEGER check (nbed>0 AND nbed<=3),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table created.
+
+create table guest_I(GID char(6), Gname char(15), Address char(15),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table created.
+
+create table regular(GID char(6), status char(16), rid char(6) not null,
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+create table service_I(SID char(6), title char(15), fee number check (fee>= 0 AND fee<=200),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table created.
+
+primary key (VID), foreign key (GID) references guest_I, foreign key (Restid) references resturant)
+                                                                                         *
+ERROR at line 2:
+ORA-00942: table or view does not exist 
+
+
+
+Table created.
+
+SQL> desc resturant
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ RESTID                                    NOT NULL CHAR(6)
+ RNAME                                              CHAR(15)
+ RTYPE                                              CHAR(5)
+ THEME                                              CHAR(15)
+
+SQL> desc visit
+ERROR:
+ORA-04043: object visit does not exist 
+
+
+SQL> @ s2.sql
+SP2-0310: unable to open file "s2.sql"
+SQL> @ a2.sql
+
+Table dropped.
+
+drop table touroperator
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+
+Table dropped.
+
+drop table room
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+drop table guest_I
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+drop table service_I
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+
+Table dropped.
+
+drop table visit
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+
+Table dropped.
+
+drop table building_i
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+create table touroperator(toid char(6), cname char(15), phone char(10), Aname char(10) not null,
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table created.
+
+foreign key (mid) references representative_report (rid) on delete set null)
+                             *
+ERROR at line 3:
+ORA-00942: table or view does not exist 
+
+
+create table building_i (bnum char(6), category char(15), b_view char(15),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+create table room (Rnum char(6), bnum char(6), nbed INTEGER check (nbed>0 AND nbed<=3),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+create table guest_I(GID char(6), Gname char(15), Address char(15),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table created.
+
+foreign key (rid) references representative_S)
+                             *
+ERROR at line 3:
+ORA-00942: table or view does not exist 
+
+
+foreign key (rid) references representative_S on delete cascade)
+                             *
+ERROR at line 3:
+ORA-00942: table or view does not exist 
+
+
+create table service_I(SID char(6), title char(15), fee number check (fee>= 0 AND fee<=200),
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+
+Table created.
+
+
+Table created.
+
+
+Table created.
+
+SQL> desc touroperator
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TOID                                      NOT NULL CHAR(6)
+ CNAME                                              CHAR(15)
+ PHONE                                              CHAR(10)
+ ANAME                                     NOT NULL CHAR(10)
+
+SQL> drop table touroperator
+  2  ;
+drop table touroperator
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+SQL> drop table representative_S
+  2  ;
+drop table representative_S
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> drop table airline_S;
+
+Table dropped.
+
+SQL> drop table service_I
+  2  ;
+drop table service_I
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+SQL> drop table is_booked;
+
+Table dropped.
+
+SQL> drop table building_i
+  2  ;
+drop table building_i
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+SQL> drop table principal;
+drop table principal
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> drop table regular;
+drop table regular
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> drop table guest_I;
+drop table guest_I
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+SQL> drop table visit;
+
+Table dropped.
+
+SQL> drop table guest_I;
+drop table guest_I
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+SQL> drop table is_booked;
+drop table is_booked
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> drop table service_I;
+
+Table dropped.
+
+SQL> drop tabel is_accommodated;
+drop tabel is_accommodated
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> drop table is guest_i;
+drop table is guest_i
+           *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> drop table guest_I;
+drop table guest_I
+           *
+ERROR at line 1:
+ORA-02449: unique/primary keys in table referenced by foreign keys 
+
+
+SQL> drop tabel is_accommodated;
+drop tabel is_accommodated
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> drop tabel is_accommodated;
+drop tabel is_accommodated
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> drop table is_accommodated;
+
+Table dropped.
+
+SQL> drop table guest_I;
+
+Table dropped.
+
+SQL> drop table Room
+  2  ;
+
+Table dropped.
+
+SQL> drop table building_i;
+
+Table dropped.
+
+SQL> drop table representative_S;
+drop table representative_S
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> desc airline_S;
+ERROR:
+ORA-04043: object airline_S does not exist 
+
+
+SQL> desc representative_S;
+ERROR:
+ORA-04043: object representative_S does not exist 
+
+
+SQL> desc visit
+ERROR:
+ORA-04043: object visit does not exist 
+
+
+SQL> desc service_i;
+ERROR:
+ORA-04043: object service_i does not exist 
+
+
+SQL> desc service_I;
+ERROR:
+ORA-04043: object service_I does not exist 
+
+
+SQL> desc principal;
+ERROR:
+ORA-04043: object principal does not exist 
+
+
+SQL> desc regular;
+ERROR:
+ORA-04043: object regular does not exist 
+
+
+SQL> desc is_booked;
+ERROR:
+ORA-04043: object is_booked does not exist 
+
+
+SQL> desc visist;
+ERROR:
+ORA-04043: object visist does not exist 
+
+
+SQL> desc visit;
+ERROR:
+ORA-04043: object visit does not exist 
+
+
+SQL> desc resturant;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ RESTID                                    NOT NULL CHAR(6)
+ RNAME                                              CHAR(15)
+ RTYPE                                              CHAR(5)
+ THEME                                              CHAR(15)
+
+SQL> drop resturant;
+drop resturant
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> drop table resturant;
+
+Table dropped.
+
+SQL> desc touroperator;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TOID                                      NOT NULL CHAR(6)
+ CNAME                                              CHAR(15)
+ PHONE                                              CHAR(10)
+ ANAME                                     NOT NULL CHAR(10)
+
+SQL> drop touroperator;
+drop touroperator
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> drop table touroperator;
+
+Table dropped.
+
+SQL> desc guest_i;
+ERROR:
+ORA-04043: object guest_i does not exist 
+
+
+SQL> desc guest_I;
+ERROR:
+ORA-04043: object guest_I does not exist 
+
+
+SQL> desc room;
+ERROR:
+ORA-04043: object room does not exist 
+
+
+SQL> desc building_i;
+ERROR:
+ORA-04043: object building_i does not exist 
+
+
+SQL> desc resturant;
+ERROR:
+ORA-04043: object resturant does not exist 
+
+
+SQL> spool off

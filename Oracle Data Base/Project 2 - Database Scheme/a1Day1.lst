@@ -1,0 +1,83 @@
+SQL> create table airline(aname varchar2(10), website varchar2(100), phone varchar2(10),
+  2  primary key(aname));
+
+Table created.
+
+SQL> Desc airline
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ANAME                                     NOT NULL VARCHAR2(10)
+ WEBSITE                                            VARCHAR2(100)
+ PHONE                                              VARCHAR2(10)
+
+SQL> create table touroperator(toid char(6), cname varchar2(100), phone varchar2(10),
+  2  primary key(TOID));
+
+Table created.
+
+SQL> desc touroperator
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TOID                                      NOT NULL CHAR(6)
+ CNAME                                              VARCHAR2(100)
+ PHONE                                              VARCHAR2(10)
+
+SQL> drop table airline
+  2  
+SQL> desc airline
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ANAME                                     NOT NULL VARCHAR2(10)
+ WEBSITE                                            VARCHAR2(100)
+ PHONE                                              VARCHAR2(10)
+
+SQL> drop table airline;
+
+Table dropped.
+
+SQL> create table airline(aname varchar2(10), website varchar2(100), phone varchar2(10),
+  2    2  primary key(aname), foreign key (toid) references touroperator);
+  2  primary key(aname), foreign key (toid) references touroperator)
+  *
+ERROR at line 2:
+ORA-00904: : invalid identifier 
+
+
+SQL> create table airline(aname varchar2(10), website varchar2(100), phone varchar2(10), toid char(6)
+  2  primary key(aname), foreign key (toid) references touroperator);
+primary key(aname), foreign key (toid) references touroperator)
+           *
+ERROR at line 2:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table airline(aname varchar2(10), website varchar2(100), phone varchar2(10), toid char(6)
+  2  primary key (aname), foreign key (toid) references touroperator);
+primary key (aname), foreign key (toid) references touroperator)
+            *
+ERROR at line 2:
+ORA-00907: missing right parenthesis 
+
+
+SQL> create table airline(aname varchar2(10), website varchar2(100), phone varchar2(10), toid char(6)
+  2  , primary key (aname), foreign key (toid) references touroperator);
+
+Table created.
+
+SQL> desc airline
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ANAME                                     NOT NULL VARCHAR2(10)
+ WEBSITE                                            VARCHAR2(100)
+ PHONE                                              VARCHAR2(10)
+ TOID                                               CHAR(6)
+
+SQL> drop table airline;
+
+Table dropped.
+
+SQL> drop table touroperator;
+
+Table dropped.
+
+SQL> spool end
